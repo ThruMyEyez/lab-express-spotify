@@ -27,9 +27,28 @@ spotifyApi
 app.get("/", (req, res) => {
   res.render("index");
 });
-app.get("/artist-search", (req, res) => {});
-app.listen(port, () => console.log(`My Spotify project running on port ${port} 🎧 🥁 🎸 🔊`));
-const clientId = process.env.CLIENT_ID;
-const clientSecret = process.env.CLIENT_SECRET;
 
-console.log(spotifyApi);
+app.get("/artist-search", (req, res) => {
+  const searchTerm = req.query.term;
+  spotifyApi
+    .searchArtists(searchTerm)
+    .then(data => {
+      //console.log("The received data from the API: ", data.body.artists.items);
+      // ----> 'HERE WHAT WE WANT TO DO AFTER RECEIVING THE DATA FROM THE API'
+
+      const artistData = data.body.artists.items;
+      console.log(artistData);
+      res.render("artistSearchResults", { artistData: artistData });
+    })
+    .catch(err => console.log("The error while searching artists occurred: ", err));
+});
+
+app.get("/albums/:artistId", (req, res, next) => {
+  // .getArtistAlbums() code goes here
+});
+
+app.listen(port, () => console.log(`My Spotify project running on port ${port} 🎧 🥁 🎸 🔊`));
+//const clientId = process.env.CLIENT_ID;
+//const clientSecret = process.env.CLIENT_SECRET;
+//
+//console.log(spotifyApi);
