@@ -29,15 +29,13 @@ app.get("/", (req, res) => {
 });
 
 app.get("/artist-search", (req, res) => {
-  const searchTerm = req.query.term;
+  const searchTerm = req.query.artist;
   spotifyApi
     .searchArtists(searchTerm)
     .then(data => {
-      //http://127.0.0.1:3000/artist-search?term=eminem
       // ----> 'HERE WHAT WE WANT TO DO AFTER RECEIVING THE DATA FROM THE API'
-
       const artistData = data.body.artists.items;
-      console.log(artistData[0].images);
+      //console.log(artistData[0].images);
 
       res.render("artistSearchResults", { artistData: artistData });
     })
