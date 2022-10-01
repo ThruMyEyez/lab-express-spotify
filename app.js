@@ -11,7 +11,7 @@ const app = express(),
 app.set("view engine", "hbs");
 app.set("views", __dirname + "/views");
 app.use(express.static(__dirname + "/public"));
-
+hbs.registerPartials(__dirname + "/views/partials");
 // setting the spotify-api goes here:
 const spotifyApi = new SpotifyWebAPI({
   clientId: process.env.CLIENT_ID,
@@ -24,6 +24,10 @@ spotifyApi
   .catch(error => console.log("Something went wrong when retrieving an access token", error));
 // Our routes go here:
 
+app.get("/", (req, res) => {
+  res.render("index");
+});
+app.get("/artist-search", (req, res) => {});
 app.listen(port, () => console.log(`My Spotify project running on port ${port} 🎧 🥁 🎸 🔊`));
 const clientId = process.env.CLIENT_ID;
 const clientSecret = process.env.CLIENT_SECRET;
