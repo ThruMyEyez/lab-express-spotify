@@ -33,11 +33,12 @@ app.get("/artist-search", (req, res) => {
   spotifyApi
     .searchArtists(searchTerm)
     .then(data => {
-      //console.log("The received data from the API: ", data.body.artists.items);
+      //http://127.0.0.1:3000/artist-search?term=eminem
       // ----> 'HERE WHAT WE WANT TO DO AFTER RECEIVING THE DATA FROM THE API'
 
       const artistData = data.body.artists.items;
-      console.log(artistData);
+      console.log(artistData[0].images);
+
       res.render("artistSearchResults", { artistData: artistData });
     })
     .catch(err => console.log("The error while searching artists occurred: ", err));

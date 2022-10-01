@@ -1,7 +1,7 @@
 {{#each artistData}}
   <p>{{name}}</p>
-
+  {{#each this.images}}
+    <img src="{{url}}" alt="{{name}}" />
+  {{/each}}
+  <a href="/albums/">View Albums</a>
 {{/each}}
-<p>image</p>
-<img src="" alt="" />
-<a href="/albums/">View Albums</a>
